@@ -1242,6 +1242,7 @@ MonoBehaviour:
   hoursTransform: {fileID: 971093709}
   minutesTransform: {fileID: 611157576}
   secondsTransform: {fileID: 157042231}
+  continuous: 1
 --- !u!1 &1630579204
 GameObject:
   m_ObjectHideFlags: 0
