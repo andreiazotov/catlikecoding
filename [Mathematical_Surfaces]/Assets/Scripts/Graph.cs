@@ -21,7 +21,10 @@ public class Graph : MonoBehaviour
         MultiSineFunction,
         Sine2DFunction,
         MultiSine2DFunction,
-        Ripple
+        Ripple,
+        Cylinder,
+        Sphere,
+        Torus
     };
 
     private void Awake()
@@ -43,18 +46,12 @@ public class Graph : MonoBehaviour
         position.z = 0.0f;
 
         this._points = new Transform[this.resolution * this.resolution];
-        for (int i = 0, z = 0; z < this.resolution; z++)
+        for (int i = 0; i < this._points.Length; i++)
         {
-            position.z = (z + 0.5f) * step - 1.0f;
-            for (int x = 0; x < this.resolution; x++, i++)
-            {
-                var point = Instantiate(this.pointPrefab);
-                position.x = (x + 0.5f) * step - 1.0f;
-                point.localPosition = position;
-                point.localScale = scale;
-                point.SetParent(this.transform, false);
-                this._points[i] = point;
-            }
+            var point = Instantiate(this.pointPrefab);
+            point.localScale = scale;
+            point.SetParent(this.transform, false);
+            this._points[i] = point;
         }
     }
 
@@ -63,12 +60,15 @@ public class Graph : MonoBehaviour
         float t = Time.time;
         var f = s_functions[(int)this.function];
 
-        for (int i = 0; i < this._points.Length; i++)
+        float step = 2.0f / this.resolution;
+        for (int i = 0, z = 0; z < this.resolution; z++)
         {
-            var point = this._points[i];
-            var position = point.localPosition;
-            position.y = f(position.x, position.z, t);
-            point.localPosition = position;
+            float v = (z + 0.5f) * step - 1.0f;
+            for (int x = 0; x < this.resolution; x++, i++)
+            {
+                float u = (x + 0.5f) * step - 1f;
+                this._points[i].localPosition = f(u, v, t);
+            }
         }
     }
 
@@ -78,41 +78,91 @@ public class Graph : MonoBehaviour
      * invoking the method on. This means that static method invocations
      * are a bit faster, but it's usually not significant enough.
     */
-    private static float SineFunction(float x, float z, float t)
+    private static Vector3 SineFunction(float x, float z, float t)
     {
-        return Mathf.Sin(pi * (x + t));
+        Vector3 p;
+        p.x = x;
+        p.y = Mathf.Sin(pi * (x + t));
+        p.z = z;
+        return p;
     }
 
-    private static float MultiSineFunction(float x, float z, float t)
+    private static Vector3 MultiSineFunction(float x, float z, float t)
     {
-        float y = Mathf.Sin(pi * (x + t));
-        y += Mathf.Sin(2.0f * pi * (x + 2.0f * t)) / 2.0f;
-        y *= 2.0f / 3.0f;
-        return y;
+        Vector3 p;
+        p.x = x;
+        p.y = Mathf.Sin(pi * (x + t));
+        p.y += Mathf.Sin(2.0f * pi * (x + 2.0f * t)) / 2.0f;
+        p.y *= 2.0f / 3.0f;
+        p.z = z;
+        return p;
     }
 
-    private static float Sine2DFunction(float x, float z, float t)
+    private static Vector3 Sine2DFunction(float x, float z, float t)
     {
-        float y = Mathf.Sin(pi * (x + t));
-        y += Mathf.Sin(pi * (z + t));
-        y *= 0.5f; // multiplication instructions are quicker than division 
-        return y;
+        Vector3 p;
+        p.x = x;
+        p.y = Mathf.Sin(pi * (x + t));
+        p.y += Mathf.Sin(pi * (z + t));
+        p.y *= 0.5f; // multiplication instructions are quicker than division 
+        p.z = z;
+        return p;
     }
 
-    private static float MultiSine2DFunction(float x, float z, float t)
+    private static Vector3 MultiSine2DFunction(float x, float z, float t)
     {
-        float y = 4f * Mathf.Sin(pi * (x + z + t * 0.5f));
-        y += Mathf.Sin(pi * (x + t));
-        y += Mathf.Sin(2f * pi * (z + 2.0f * t)) * 0.5f;
-        y *= 1.0f / 5.5f;
-        return y;
+        Vector3 p;
+        p.x = x;
+        p.y = 4.0f * Mathf.Sin(pi * (x + z + t / 2.0f));
+        p.y += Mathf.Sin(pi * (x + t));
+        p.y += Mathf.Sin(2.0f * pi * (z + 2.0f * t)) * 0.5f;
+        p.y *= 1.0f / 5.5f;
+        p.z = z;
+        return p;
     }
 
-    private static float Ripple(float x, float z, float t)
+    private static Vector3 Ripple(float x, float z, float t)
     {
+        Vector3 p;
         float d = Mathf.Sqrt(x * x + z * z);
-        float y = Mathf.Sin(pi * (4.0f * d - t));
-        y /= 1.0f + 10.0f * d;
-        return y;
+        p.x = x;
+        p.y = Mathf.Sin(pi * (4.0f * d - t));
+        p.y /= 1.0f + 10.0f * d;
+        p.z = z;
+        return p;
+    }
+
+    private static Vector3 Cylinder(float u, float v, float t)
+    {
+        float r = 0.8f + Mathf.Sin(pi * (6.0f * u + 2.0f * v + t)) * 0.2f;
+        Vector3 p;
+        p.x = r * Mathf.Sin(pi * u);
+        p.y = v;
+        p.z = r * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 Sphere(float u, float v, float t)
+    {
+        Vector3 p;
+        float r = 0.8f + Mathf.Sin(pi * (6f * u + t)) * 0.1f;
+        r += Mathf.Sin(pi * (4f * v + t)) * 0.1f;
+        float s = r * Mathf.Cos(pi * 0.5f * v);
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = r * Mathf.Sin(pi * 0.5f * v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 Torus(float u, float v, float t)
+    {
+        Vector3 p;
+        float r1 = 0.65f + Mathf.Sin(pi * (6.0f * u + t)) * 0.1f;
+        float r2 = 0.2f + Mathf.Sin(pi * (4.0f * v + t)) * 0.05f;
+        float s = r2 * Mathf.Cos(pi * v) + r1;
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = r2 * Mathf.Sin(pi * v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
     }
 }
