@@ -11,10 +11,14 @@ public class Graph : MonoBehaviour
      * This makes it possible to control the function via the graph's
      * inspector, also while we're in play mode.
     */
-    [Range(0, 1)]
-    public int function;
+    public GraphFunctionName function;
 
     private Transform[] _points;
+
+    private static GraphFunction[] s_functions = {
+        SineFunction,
+        MultiSineFunction
+    };
 
     private void Awake()
     {
@@ -50,28 +54,29 @@ public class Graph : MonoBehaviour
     private void FixedUpdate()
     {
         float t = Time.time;
+        var f = s_functions[(int)this.function];
+
         for (int i = 0; i < this._points.Length; i++)
         {
             var point = this._points[i];
             var position = point.localPosition;
-            if (function == 0)
-            {
-                position.y = this.SineFunction(position.x, t);
-            }
-            else
-            {
-                position.y = this.MultiSineFunction(position.x, t);
-            }
+            position.y = f(position.x, t);
             point.localPosition = position;
         }
     }
 
-    private float SineFunction(float x, float t)
+    /*
+     * Because static methods aren't associated with object instances,
+     * the compiled code doesn't have to keep track of which object
+     * invoking the method on. This means that static method invocations
+     * are a bit faster, but it's usually not significant enough.
+    */
+    private static float SineFunction(float x, float t)
     {
         return Mathf.Sin(Mathf.PI * (x + t));
     }
 
-    private float MultiSineFunction(float x, float t)
+    private static float MultiSineFunction(float x, float t)
     {
         float y = Mathf.Sin(Mathf.PI * (x + t));
         y += Mathf.Sin(2.0f * Mathf.PI * (x + 2.0f * t)) / 2.0f;
