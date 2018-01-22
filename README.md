@@ -5,3 +5,4 @@ Catlikecoding Unity Tutorials from [Here](http://catlikecoding.com/unity/tutoria
 2.  Finish -> [Building A Graph](http://catlikecoding.com/unity/tutorials/basics/building-a-graph/)
 3.  Finish -> [Mathematical Surfaces](http://catlikecoding.com/unity/tutorials/basics/mathematical-surfaces/)
 4.  Finish -> [Constructing A Fractal](http://catlikecoding.com/unity/tutorials/constructing-a-fractal/)
+5.  Finish -> [Frames Per Second](http://catlikecoding.com/unity/tutorials/frames-per-second/)
