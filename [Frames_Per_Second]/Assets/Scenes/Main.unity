@@ -118,8 +118,6 @@ GameObject:
   - component: {fileID: 316919491}
   - component: {fileID: 316919493}
   - component: {fileID: 316919492}
-  - component: {fileID: 316919495}
-  - component: {fileID: 316919494}
   m_Layer: 5
   m_Name: FPSLabelAverage
   m_TagString: Untagged
@@ -184,33 +182,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 316919490}
---- !u!114 &316919494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 316919490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c2a6543ecd1f948a6db7a89166ed9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fpsLabelAverage: {fileID: 316919492}
-  fpsLabelHighest: {fileID: 1259046698}
-  fpsLabelLowest: {fileID: 712383420}
-  _coloring: []
---- !u!114 &316919495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 316919490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b6fd449ba27e349b738c4097c775b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frameRange: 60
 --- !u!1 &528860218
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,8 +271,6 @@ GameObject:
   - component: {fileID: 712383417}
   - component: {fileID: 712383421}
   - component: {fileID: 712383420}
-  - component: {fileID: 712383419}
-  - component: {fileID: 712383418}
   m_Layer: 5
   m_Name: FPSLabelLowest
   m_TagString: Untagged
@@ -327,33 +296,6 @@ RectTransform:
   m_AnchoredPosition: {x: 4, y: -52}
   m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &712383418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 712383416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c2a6543ecd1f948a6db7a89166ed9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fpsLabelAverage: {fileID: 316919492}
-  fpsLabelHighest: {fileID: 1259046698}
-  fpsLabelLowest: {fileID: 712383420}
-  _coloring: []
---- !u!114 &712383419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 712383416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b6fd449ba27e349b738c4097c775b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frameRange: 60
 --- !u!114 &712383420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,8 +479,6 @@ GameObject:
   - component: {fileID: 1259046695}
   - component: {fileID: 1259046699}
   - component: {fileID: 1259046698}
-  - component: {fileID: 1259046697}
-  - component: {fileID: 1259046696}
   m_Layer: 5
   m_Name: FPSLabelHighest
   m_TagString: Untagged
@@ -564,43 +504,6 @@ RectTransform:
   m_AnchoredPosition: {x: 4, y: -4}
   m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1259046696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1259046694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03c2a6543ecd1f948a6db7a89166ed9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fpsLabelAverage: {fileID: 316919492}
-  fpsLabelHighest: {fileID: 1259046698}
-  fpsLabelLowest: {fileID: 712383420}
-  _coloring:
-  - color: {r: 1, g: 1, b: 1, a: 1}
-    minimumFPS: 60
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    minimumFPS: 45
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    minimumFPS: 30
-  - color: {r: 0, g: 0, b: 0, a: 0}
-    minimumFPS: 15
-  - color: {r: 1, g: 0, b: 0, a: 1}
-    minimumFPS: 0
---- !u!114 &1259046697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1259046694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b6fd449ba27e349b738c4097c775b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frameRange: 60
 --- !u!114 &1259046698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,6 +553,8 @@ GameObject:
   - component: {fileID: 1333362629}
   - component: {fileID: 1333362631}
   - component: {fileID: 1333362630}
+  - component: {fileID: 1333362633}
+  - component: {fileID: 1333362632}
   m_Layer: 5
   m_Name: FPSPanel
   m_TagString: Untagged
@@ -711,6 +616,43 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1333362628}
+--- !u!114 &1333362632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1333362628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c2a6543ecd1f948a6db7a89166ed9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fpsLabelAverage: {fileID: 316919492}
+  fpsLabelHighest: {fileID: 1259046698}
+  fpsLabelLowest: {fileID: 712383420}
+  _coloring:
+  - color: {r: 1, g: 1, b: 1, a: 1}
+    minimumFPS: 60
+  - color: {r: 0, g: 0.85, b: 0.428, a: 1}
+    minimumFPS: 45
+  - color: {r: 0.44827592, g: 1, b: 0, a: 1}
+    minimumFPS: 30
+  - color: {r: 1, g: 0, b: 1, a: 1}
+    minimumFPS: 15
+  - color: {r: 1, g: 0, b: 0, a: 1}
+    minimumFPS: 0
+--- !u!114 &1333362633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1333362628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b6fd449ba27e349b738c4097c775b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameRange: 60
 --- !u!1 &1483033698
 GameObject:
   m_ObjectHideFlags: 0
