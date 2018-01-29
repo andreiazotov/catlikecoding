@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class NucleonSpawner : MonoBehaviour
+public class StuffSpawner : MonoBehaviour
 {
     public float timeBetweenSpawns;
-    public float spawnDistance;
-    public Nucleon[] nucleonPrefabs;
+    public Stuff[] stuffPrefabs;
+    public float velocity;
 
     private float _timeSinceLastSpawn;
 
@@ -15,14 +15,15 @@ public class NucleonSpawner : MonoBehaviour
         if (this._timeSinceLastSpawn >= this.timeBetweenSpawns)
         {
             this._timeSinceLastSpawn -= this.timeBetweenSpawns;
-            this.SpawnNucleon();
+            this.SpawnStuff();
         }
     }
 
-    private void SpawnNucleon()
+    private void SpawnStuff()
     {
-        var obj = this.nucleonPrefabs[Random.Range(0, this.nucleonPrefabs.Length)];
+        var obj = this.stuffPrefabs[Random.Range(0, this.stuffPrefabs.Length)];
         var spawn = Instantiate(obj);
-        spawn.transform.localPosition = Random.onUnitSphere * this.spawnDistance;
+        spawn.transform.localPosition = this.transform.position;
+        spawn.body.velocity = transform.up * this.velocity;
     }
 }
