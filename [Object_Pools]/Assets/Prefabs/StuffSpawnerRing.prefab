@@ -56,3 +56,8 @@ MonoBehaviour:
   tiltAngle: -20
   spawnerPrefab: {fileID: 114090822554970412, guid: 4b4846d81d3cbce4a811889e6462c4bb,
     type: 2}
+  stuffMaterials:
+  - {fileID: 2100000, guid: 88aac80899e331e47a1910783cfba240, type: 2}
+  - {fileID: 2100000, guid: 00b50257927f4df419b57811e8a90d73, type: 2}
+  - {fileID: 2100000, guid: 5047d4c28a236b64ca95e982253a7d12, type: 2}
+  - {fileID: 2100000, guid: fab1fa7f8bd3835478b89ca6a499add8, type: 2}
