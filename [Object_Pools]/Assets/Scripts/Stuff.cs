@@ -3,12 +3,12 @@
 [RequireComponent(typeof(Rigidbody))]
 public class Stuff : PooledObject
 {
-    public Rigidbody body { get; private set; }
+    public Rigidbody Body { get; private set; }
     private MeshRenderer[] _meshRenderers;
 
     private void Awake()
     {
-        this.body = this.GetComponent<Rigidbody>();
+        this.Body = this.GetComponent<Rigidbody>();
         this._meshRenderers = this.GetComponentsInChildren<MeshRenderer>();
     }
 

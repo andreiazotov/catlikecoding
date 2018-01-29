@@ -44,8 +44,8 @@ public class StuffSpawner : MonoBehaviour
         spawn.transform.localPosition = this.transform.position;
         spawn.transform.localScale = Vector3.one * this.scale.RandomInRange;
         spawn.transform.localRotation = Random.rotation;
-        spawn.body.velocity = transform.up * this.velocity + Random.onUnitSphere * this.randomVelocity.RandomInRange;
-        spawn.body.angularVelocity = Random.onUnitSphere * this.angularVelocity.RandomInRange;
+        spawn.Body.velocity = transform.up * this.velocity + Random.onUnitSphere * this.randomVelocity.RandomInRange;
+        spawn.Body.angularVelocity = Random.onUnitSphere * this.angularVelocity.RandomInRange;
         spawn.SetMaterial(this.stuffMaterial);
     }
 }
