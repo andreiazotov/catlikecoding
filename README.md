@@ -7,3 +7,4 @@ Catlikecoding Unity Tutorials from [Here](http://catlikecoding.com/unity/tutoria
 4.  Finish -> [Constructing A Fractal](http://catlikecoding.com/unity/tutorials/constructing-a-fractal/)
 5.  Finish -> [Frames Per Second](http://catlikecoding.com/unity/tutorials/frames-per-second/)
 6.  Finish -> [Object Pools](http://catlikecoding.com/unity/tutorials/object-pools/)
+7.  Finish -> [Curves And Splines](http://catlikecoding.com/unity/tutorials/curves-and-splines/)
