@@ -18,16 +18,16 @@ public class LineInspector : Editor
         p0 = Handles.DoPositionHandle(p0, handleRotation);
         if (EditorGUI.EndChangeCheck())
         {
-            //Undo.RecordObject(line, "Move point");
-            //EditorUtility.SetDirty(line);
+            Undo.RecordObject(line, "Move point");
+            EditorUtility.SetDirty(line);
             line.p0 = handleTransform.InverseTransformPoint(p0);
         }
         EditorGUI.BeginChangeCheck();
         p1 = Handles.DoPositionHandle(p1, handleRotation);
         if (EditorGUI.EndChangeCheck())
         {
-            //Undo.RecordObject(line, "Move point");
-            //EditorUtility.SetDirty(line);
+            Undo.RecordObject(line, "Move point");
+            EditorUtility.SetDirty(line);
             line.p1 = handleTransform.InverseTransformPoint(p1);
         }
     }
