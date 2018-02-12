@@ -17,6 +17,9 @@ public class Grid : MonoBehaviour
     private void Generate()
     {
         this._vertices = new Vector3[(this.xSize + 1) * (this.ySize + 1)];
+        var uv = new Vector2[this._vertices.Length];
+        var tangents = new Vector4[this._vertices.Length];
+        var tangent = new Vector4(1.0f, 0.0f, 0.0f, -1.0f);
         this._mesh = new Mesh();
         this.GetComponent<MeshFilter>().mesh = this._mesh;
         this._mesh.name = "Procedural Grid";
@@ -25,10 +28,15 @@ public class Grid : MonoBehaviour
         {
             for (int x = 0; x <= this.xSize; x++)
             {
-                this._vertices[index++] = new Vector2(x, y);
+                this._vertices[index] = new Vector2(x, y);
+                uv[index] = new Vector2((float)x / this.xSize, (float)y / this.ySize);
+                tangents[index] = tangent;
+                index++;
             }
         }
         this._mesh.vertices = this._vertices;
+        this._mesh.uv = uv;
+        this._mesh.tangents = tangents;
 
         int[] triangles = new int[this.xSize * this.ySize * 6];
 
@@ -44,6 +52,7 @@ public class Grid : MonoBehaviour
         }
 
         this._mesh.triangles = triangles;
+        this._mesh.RecalculateNormals();
     }
 
     private void OnDrawGizmos()
