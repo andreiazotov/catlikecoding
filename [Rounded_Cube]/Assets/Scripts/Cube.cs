@@ -7,9 +7,11 @@ public class Cube : MonoBehaviour
     public int xSize;
     public int ySize;
     public int zSize;
+    public int roundness;
 
     private Vector3[] _vertices;
     private Mesh _mesh;
+    private Vector3[] _normals;
 
     private void Awake()
     {
@@ -32,25 +34,26 @@ public class Cube : MonoBehaviour
         int faceVertices = ((this.xSize - 1) * (this.ySize - 1) + (this.xSize - 1) * (this.zSize - 1) + (this.ySize - 1) * (this.zSize - 1)) * 2;
 
         this._vertices = new Vector3[cornerVertices + edgeVertices + faceVertices];
+        this._normals = new Vector3[this._vertices.Length];
 
         int v = 0;
         for (int y = 0; y <= this.ySize; y++)
         {
             for (int x = 0; x <= this.xSize; x++)
             {
-                this._vertices[v++] = new Vector3(x, y, 0);
+                this.SetVertex(v++, x, y, 0);
             }
             for (int z = 1; z <= this.zSize; z++)
             {
-                this._vertices[v++] = new Vector3(this.xSize, y, z);
+                this.SetVertex(v++, this.xSize, y, z);
             }
             for (int x = this.xSize - 1; x >= 0; x--)
             {
-                this._vertices[v++] = new Vector3(x, y, this.zSize);
+                this.SetVertex(v++, x, y, this.zSize);
             }
             for (int z = this.zSize - 1; z > 0; z--)
             {
-                this._vertices[v++] = new Vector3(0, y, z);
+                this.SetVertex(v++, 0, y, z);
             }
         }
 
@@ -58,19 +61,56 @@ public class Cube : MonoBehaviour
         {
             for (int x = 1; x < this.xSize; x++)
             {
-                this._vertices[v++] = new Vector3(x, this.ySize, z);
+                this.SetVertex(v++, x, this.ySize, z);
             }
         }
         for (int z = 1; z < this.zSize; z++)
         {
             for (int x = 1; x < this.xSize; x++)
             {
-                this._vertices[v++] = new Vector3(x, 0, z);
+                this.SetVertex(v++, x, 0, z);
             }
         }
 
         this._mesh.vertices = this._vertices;
+        this._mesh.normals = this._normals;
     }
+
+    private void SetVertex(int i, int x, int y, int z)
+    {
+        var inner = this._vertices[i] = new Vector3(x, y, z);
+
+        if (x < this.roundness)
+        {
+            inner.x = roundness;
+        }
+        else if (x > this.xSize - this.roundness)
+        {
+            inner.x = this.xSize - roundness;
+        }
+
+        if (y < this.roundness)
+        {
+            inner.y = this.roundness;
+        }
+        else if (y > this.ySize - this.roundness)
+        {
+            inner.y = this.ySize - this.roundness;
+        }
+
+        if (z < this.roundness)
+        {
+            inner.z = this.roundness;
+        }
+        else if (z > this.zSize - this.roundness)
+        {
+            inner.z = this.zSize - this.roundness;
+        }
+
+        this._normals[i] = (this._vertices[i] - inner).normalized;
+        this._vertices[i] = inner + this._normals[i] * this.roundness;
+    }
+
     private void CreateTriangles()
     {
         int quads = (this.xSize * this.ySize + this.xSize * this.zSize + this.ySize * this.zSize) * 2;
@@ -100,10 +140,13 @@ public class Cube : MonoBehaviour
         {
             return;
         }
-        Gizmos.color = Color.black;
-        foreach (var v in this._vertices)
+
+        for (int i = 0; i < this._vertices.Length; i++)
         {
-            Gizmos.DrawSphere(v, 0.1f);
+            Gizmos.color = Color.black;
+            Gizmos.DrawSphere(this._vertices[i], 0.1f);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(this._vertices[i], this._normals[i]);
         }
     }
 
