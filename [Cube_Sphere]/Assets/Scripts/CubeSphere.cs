@@ -29,8 +29,8 @@ public class CubeSphere : MonoBehaviour
     private void CreateVertices()
     {
         int cornerVertices = 8;
-        int edgeVertices = (this.gridSize + this.gridSize + this.gridSize - 3) * 4;
-        int faceVertices = ((this.gridSize - 1) * (this.gridSize - 1) + (this.gridSize - 1) * (this.gridSize - 1) + (this.gridSize - 1) * (this.gridSize - 1)) * 2;
+        int edgeVertices = 12 * this.gridSize - 12;
+        int faceVertices = (this.gridSize - 1) * (this.gridSize - 1) * 6;
 
         this._vertices = new Vector3[cornerVertices + edgeVertices + faceVertices];
         this._normals = new Vector3[this._vertices.Length];
@@ -94,11 +94,12 @@ public class CubeSphere : MonoBehaviour
 
     private void CreateTriangles()
     {
-        var trianglesZ = new int[(gridSize * gridSize) * 12];
-        var trianglesX = new int[(gridSize * gridSize) * 12];
-        var trianglesY = new int[(gridSize * gridSize) * 12];
+        var size = (gridSize * gridSize) * 12;
+        var trianglesZ = new int[size];
+        var trianglesX = new int[size];
+        var trianglesY = new int[size];
 
-        int ring = (this.gridSize + this.gridSize) * 2;
+        int ring = this.gridSize * 4;
 
         int tX = 0;
         int tY = 0;
@@ -213,11 +214,9 @@ public class CubeSphere : MonoBehaviour
         for (int z = 1; z < this.gridSize - 1; z++, vMin--, vMid++, vMax++)
         {
             t = SetQuad(triangles, t, vMin, vMid + this.gridSize - 1, vMin + 1, vMid);
-            for (int x = 1; x < gridSize - 1; x++, vMid++)
+            for (int x = 1; x < this.gridSize - 1; x++, vMid++)
             {
-                t = SetQuad(
-                    triangles, t,
-                    vMid + this.gridSize - 1, vMid + this.gridSize, vMid, vMid + 1);
+                t = SetQuad(triangles, t, vMid + this.gridSize - 1, vMid + this.gridSize, vMid, vMid + 1);
             }
             t = SetQuad(triangles, t, vMid + this.gridSize - 1, vMax + 1, vMid, vMax);
         }
