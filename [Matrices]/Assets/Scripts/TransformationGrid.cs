@@ -7,7 +7,8 @@ public class TransformationGrid : MonoBehaviour
     public int gridResolution = 10;
 
     private Transform[] _grid;
-    private List<Transfromation> _transformations;
+    private List<Transformation> _transformations;
+    private Matrix4x4 _transformation;
 
     private void Awake()
     {
@@ -24,12 +25,13 @@ public class TransformationGrid : MonoBehaviour
             }
         }
 
-        this._transformations = new List<Transfromation>();
+        this._transformations = new List<Transformation>();
     }
 
     private void Update()
     {
-        this.GetComponents<Transfromation>(this._transformations);
+        this.UpdateTransformation();
+        this.GetComponents<Transformation>(this._transformations);
 
         for (int i = 0, z = 0; z < this.gridResolution; z++)
         {
@@ -39,6 +41,19 @@ public class TransformationGrid : MonoBehaviour
                 {
                     this._grid[i].localPosition = this.TransformPoint(x, y, z);
                 }
+            }
+        }
+    }
+
+    private void UpdateTransformation()
+    {
+        this.GetComponents<Transformation>(this._transformations);
+        if (this._transformations.Count > 0)
+        {
+            this._transformation = this._transformations[0].Matrix;
+            for (int i = 1; i < this._transformations.Count; i++)
+            {
+                this._transformation = this._transformations[i].Matrix * this._transformation;
             }
         }
     }
@@ -67,10 +82,6 @@ public class TransformationGrid : MonoBehaviour
     private Vector3 TransformPoint(int x, int y, int z)
     {
         var coordinates = this.GetCoordinates(x, y, z);
-        for (int i = 0; i < this._transformations.Count; i++)
-        {
-            coordinates = this._transformations[i].Apply(coordinates);
-        }
-        return coordinates;
+        return this._transformation.MultiplyPoint(coordinates);
     }
 }
