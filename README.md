@@ -17,3 +17,8 @@ Catlikecoding Unity Tutorials from [Here](http://catlikecoding.com/unity/tutoria
 12. Finish -> [**03.04.18**][Matrices](http://catlikecoding.com/unity/tutorials/rendering/part-1/)
 13. Finish -> [**09.04.18**][Shader Fundamentals](http://catlikecoding.com/unity/tutorials/rendering/part-2/)
 14. Finish -> [**16.04.18**][Combining Textures](http://catlikecoding.com/unity/tutorials/rendering/part-3/)
+15. Uncompleted -> [**24.04.18**][The First Light](http://catlikecoding.com/unity/tutorials/rendering/part-4/)
+
+[**SKIP RENDERING/SHADERS TUTORIALS**]
+
+16. Upcoming -> [Creating a Hexagonal Grid]
