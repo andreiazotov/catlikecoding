@@ -19,6 +19,6 @@ Catlikecoding Unity Tutorials from [Here](http://catlikecoding.com/unity/tutoria
 14. Finish -> [**16.04.18**][Combining Textures](http://catlikecoding.com/unity/tutorials/rendering/part-3/)
 15. Uncompleted -> [**24.04.18**][The First Light](http://catlikecoding.com/unity/tutorials/rendering/part-4/)
 
-[**SKIP RENDERING/SHADERS TUTORIALS**]
+**Unity version:** 2018.3
 
-16. Upcoming -> [Creating a Hexagonal Grid]
+16. Finish -> [**07.02.19**][Persisting Objects](https://catlikecoding.com/unity/tutorials/object-management/persisting-objects/)
