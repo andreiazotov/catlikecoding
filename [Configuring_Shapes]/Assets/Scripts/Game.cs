@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Game : Shape
 {
-    private const int SAVE_VERSION = 3;
+    private const int SAVE_VERSION = 4;
 
     [SerializeField]
     private Slider creationSpeedSlider;
@@ -83,6 +83,10 @@ public class Game : Shape
     }
 
     private void FixedUpdate() {
+        for (int i = 0; i < _shapes.Count; i++) {
+            _shapes[i].GameUpdate();
+        }
+
         _creationProgress += Time.deltaTime * CreationSpeed;
         while (_creationProgress >= 1.0f) {
             _creationProgress -= 1.0f;
@@ -108,11 +112,7 @@ public class Game : Shape
 
     private void CreateShape() {
         var instance = shapeFactory.GetRandom();
-        var t = instance.transform;
-        t.localPosition = GameLevel.Current.SpawnPoint;
-        t.localRotation = Random.rotation;
-        t.localScale = Vector3.one * Random.Range(0.1f, 1.0f);
-        instance.SetColor(Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.25f, 1f, 1f, 1f));
+        GameLevel.Current.ConfigureSpawn(instance);
         _shapes.Add(instance);
     }
 

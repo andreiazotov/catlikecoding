@@ -8,8 +8,9 @@ public class GameLevel : PersistableObject
     private PersistableObject[] _persistentObjects;
 
     public static GameLevel Current { get; private set; }
-    public Vector3 SpawnPoint {
-        get { return _spawnZone.SpawnPoint; }
+
+    public void ConfigureSpawn(Shape shape) {
+        _spawnZone.ConifgureSpawn(shape);
     }
 
     private void OnEnable() {
