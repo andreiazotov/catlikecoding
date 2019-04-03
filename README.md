@@ -24,3 +24,4 @@ Catlikecoding Unity Tutorials from [Here](http://catlikecoding.com/unity/tutoria
 19. Finish -> [**25.02.19**][Multiple Scenes](https://catlikecoding.com/unity/tutorials/object-management/multiple-scenes/)
 20. Finish -> [**27.02.19**][Spawn Zones](https://catlikecoding.com/unity/tutorials/object-management/spawn-zones/)
 21. Finish -> [**01.03.19**][More Game State](https://catlikecoding.com/unity/tutorials/object-management/more-game-state/)
+22. Finish -> [**03.04.19**][Configuring Shapes](https://catlikecoding.com/unity/tutorials/object-management/configuring-shapes/)
