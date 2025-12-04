@@ -1,0 +1,47 @@
+#pragma kernel FunctionKernel
+
+#define PI 3.14159265358979323846
+
+// When a GPU is instructed to execute a compute shader function
+// it partitions its work into groups and then schedules them to run
+// independently and in parallel. Each group in turn consists
+// of a number of threads that perform the same calculations but with different input.
+// We have to specify how many threads each group should have, by adding the numthreads
+// attribute to our kernel function. It requires three integer arguments.
+// The simplest options is to use 1 for all three arguments, which makes each group
+// run only a single thread.
+
+RWStructuredBuffer<float3> _Positions;
+uint _Resolution;
+float _Step;
+float _Time;
+
+float2 GetUV(uint3 id)
+{
+	return (id.xy + 0.5) * _Step - 1.0;
+}
+
+float3 Ripple (float u, float v, float t) {
+	float d = sqrt(u * u + v * v);
+	float3 p;
+	p.x = u;
+	p.y = sin(PI * (4.0 * d - t));
+	p.y /= 1.0 + 10.0 * d;
+	p.z = v;
+	return p;
+}
+
+void SetPosition (uint3 id, float3 position)
+{
+	if (id.x < _Resolution && id.y < _Resolution)
+	{
+		_Positions[id.x + id.y * _Resolution] = position;
+	}
+}
+
+[numthreads(8, 8, 1)]
+void FunctionKernel(uint3 id: SV_DispatchThreadID)
+{
+	float2 uv = GetUV(id);
+	SetPosition(id, Ripple(uv.x, uv.y, _Time));
+}
